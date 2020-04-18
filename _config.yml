@@ -98,9 +98,19 @@ tag_cloud:
     textColour: \#333
     textHeight: 25
     outlineColour: \#E2E1D1
+# 自动生成sitemap
+sitemap: 
+  path: sitemap.xml
 # 百度站点推送
 baidusitemap:
   path: baidusitemap.xml
+# 百度主动推送
+baidu_url_submit:
+  count: 19 ## 比如19，代表提交最新的三个链接
+  host: blog.langaobai.top ## 在百度站长平台中注册的域名
+  token: LI5jac4exJdBRjo5 ## 请注意这是您的秘钥， 请不要发布在公众仓库里!
+  path: baidu_urls.txt ## 文本文档的地址， 新链接会保存在此文本文档里
+
 
 # MathJax Support
 mathjax:
@@ -120,10 +130,11 @@ metadata:
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type: git
+- type: git
   repo: 
       github: git@github.com:langaobai/langaobai.github.io.git,master
-      coding: git@git.coding.net:langaobai/blog.git,master
+      coding: git@e.coding.net:langaobai/blog/blog.git,master
+- type: baidu_url_submitter ##新加入 
 #   branch: master
 # - type: git
 #   message: [message]

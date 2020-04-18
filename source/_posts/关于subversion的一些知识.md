@@ -54,7 +54,7 @@ date: 2018-05-31 13:53:00
 
 我们将这份居于主要地位的源代码称为**主干**；
 
-![主干](C:\Users\ADMINI~1\AppData\Local\Temp\1527747888648.png)
+![主干](\img\articlePicture\svnTunk.gif)
 
 那么**分支**又是一个怎样的需求呢？为什么会产生分支这种情况；
 
@@ -76,10 +76,6 @@ date: 2018-05-31 13:53:00
 而发布团队，则对分支进行修正，比对而又能对过去的问题进行持续的跟踪；
 
 这里作者还说了一个问题，有人被分支搞到头大，是因为过度使用分支，而这样最后会发现，你在合并的时候，痛苦异常；
-
-我想这位老兄肯定是穿越了太多的平行空间，就像**盗梦空间**里那样，梦太多回不去了...
-
-![主干与分支](C:\Users\ADMINI~1\AppData\Local\Temp\1527750672884.png)
 
 ### 合并
 
@@ -105,11 +101,63 @@ date: 2018-05-31 13:53:00
 
 但这个时候，版本控制系统不会简单的以项目仓库中最新版本的文件去覆盖你辛苦改过的文件，而是**尝试着去合并项目仓库中所有的改动和你的改动**；
 
-
-
 一般而言严格加锁在使用过程中会出现很多问题，例如：一个人必须要等其他人编辑结束并签入之后才能继续他的工作；
 
 因此用得更多的反而是乐观加锁处理；
 
+## SVN备份[^一关开发室]
+
+### 1. 导出
+
+1.进入svn安装路径bin文件夹下，使用 cd 命令
+
+在windows下，<kbd>win</kbd><kbd>+</kbd><kbd>R</kbd> 键入 `cmd` 回车 打开命令窗口cmd，进入下列目录（`svn服务器安装目录bin`）： 
+
+`"c:\Program Files\VisualSVN Server\bin\"`
+
+![svn目录](\img\articlePicture\svnbinToc.png)
+
+2.备份/导出（svnadmin dump C:\Repositories\需导出库 > E:\*\*文件夹\full.svn.bak）
+
+输入下列命令并执行：
+
+`svnadmin dump C:\Repositories\Hash加密（MD5、Sha1） > E:\svnbak\full.svn.bak`
+
+ ![svnadmindump](\img\articlePicture\svnadmindump.gif)
+
+3、full.svn.bak为备份文件。将其文件拷贝到目标机器,或是存储备份。
+
+### 2. 导入/还原：
+
+1、在目标机器创建仓库：
+
+`svnadmin create D:/repositories/TestProject  (可右键**管理Server**新建)`
+
+并注意检查是否需要修改文件夹权限 
+
+2、执行命令svnadminload:
+
+`svnadmin load D:/repositories/TestProject **<** E:\svnbak\full.svn.bak`
+
+图解：
+
+ ![svnadmindumpload](\img\articlePicture\svnadmindumpload.gif)
+
+注释：该种方式适用于重装服务器、移动代码库 使用。
+
+问题：
+
+1.svn不知道这样的主机
+
+重做服务器后，计算机名称肯定是不一样的。我们之前的项目还是老计算机名字，只要**更改一下计算机名字**即可实现。或者更改 
+
+![svnRname](\img\articlePicture\svnRname.gif)
+
+### 3. 目录式导入导出
+
+找到`VisualSvn Server`中的**操作**点击**Stroage**查找到svn管理目录，直接进行拷贝备份；
+
+移植到新目录也是这样，这个方法简单粗暴了点，而且也并非官方支持，*谨慎使用吧*；
 
 
+[^一关开发室]: https://www.cnblogs.com/blogs2014/p/5039213.html

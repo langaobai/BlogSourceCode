@@ -47,6 +47,12 @@ grant connect,resource,dba to YNMZCK;
 1. 导出命令
 ```bash
 exp YNMZCC/YNMZCC@orcl  file=d:\ynmzcc.dmp owner = YNMZCC
+# 字符集问题，NLS_LANG
+# 查看环境变量
+echo %NLS_LANG%
+# 设置环境变量
+set NLS_LANG=AMERICAN_AMERICA.AL32UTF8
+set NLS_LANG=AMERICAN_AMERICA.ZHS16GBK
 ```
 
 2. 导入命令
@@ -157,3 +163,40 @@ SELECT * FROM USER_TAB_COMMENTS UTC WHERE UTC.COMMENTS LIKE '%comment%'
 SELECT * FROM USER_COL_COMMENTS WHERE TABLE_NAME = 'TABLE_NAME'
 ```
 
+### delete数据恢复
+
+#### 打开Flash存储的权限
+
+```sql
+ ALTER TABLE tablename ENABLE row movement ;
+```
+
+#### 把表还原到指定时间点
+
+```sql
+flashback table tablename to timestamp to_timestamp('2008-02-28 10:40:00','yyyy-mm-dd hh24:mi:ss');
+```
+
+#### drop数据恢复（未重建同名的表时才有用）
+
+```sql
+flashback table tbl_corpinfo to before drop;
+```
+
+### oracle数据库的最大连接数
+
+#### 查询连接数
+
+```sql
+show parameter processes;
+show parameter sessions;
+```
+
+#### 修改连接数
+
+```sql
+alter system set processes=500 scope=spfile;
+alter system set sessions=500 scope=spfile;
+```
+
+重启服务,修改的连接数就会生效。
