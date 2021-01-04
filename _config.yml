@@ -12,7 +12,7 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: http://blog.langaobai.top
+url: http://blog.langaibai.top
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -107,7 +107,7 @@ baidusitemap:
 # 百度主动推送
 baidu_url_submit:
   count: 19 ## 比如19，代表提交最新的三个链接
-  host: blog.langaobai.top ## 在百度站长平台中注册的域名
+  host: blog.langaibai.top ## 在百度站长平台中注册的域名
   token: LI5jac4exJdBRjo5 ## 请注意这是您的秘钥， 请不要发布在公众仓库里!
   path: baidu_urls.txt ## 文本文档的地址， 新链接会保存在此文本文档里
 
